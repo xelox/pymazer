@@ -4,16 +4,17 @@ from line import Line
 
 class Cell: # pylint: disable=too-few-public-methods disable=too-many-instance-attributes
     size = 30
-    def __init__(self, win: Window, coord: Point, ):
+    def __init__(self, win: Window, pos: Point, coord: Point, ):
         self.north = True
         self.east = True
         self.south = True
         self.west = True
         self.__win = win
+        self.coord = coord
 
-        self.center = coord + Point(Cell.size / 2, Cell.size / 2)
+        self.center = pos + Point(Cell.size / 2, Cell.size / 2)
 
-        nw = coord
+        nw = pos
         ne = nw + Point(Cell.size, 0)
         se = ne + Point(0, Cell.size)
         sw = nw + Point(0, Cell.size)
@@ -21,6 +22,8 @@ class Cell: # pylint: disable=too-few-public-methods disable=too-many-instance-a
         self.__east_line = Line(ne, se)
         self.__south_line = Line(se, sw)
         self.__west_line = Line(sw, nw)
+
+        self.initial = True
 
     def draw_move(self, other, undo=False):
         color = 'red'
