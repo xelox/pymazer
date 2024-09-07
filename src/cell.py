@@ -11,21 +11,29 @@ class Cell: # pylint: disable=too-few-public-methods disable=too-many-instance-a
         self.west = True
         self.__win = win
 
+        self.center = coord + Point(Cell.size / 2, Cell.size / 2)
+
         nw = coord
         ne = nw + Point(Cell.size, 0)
         se = ne + Point(0, Cell.size)
         sw = nw + Point(0, Cell.size)
-        self.north_line = Line(nw, ne)
-        self.east_line = Line(ne, se)
-        self.south_line = Line(se, sw)
-        self.west_line = Line(sw, nw)
+        self.__north_line = Line(nw, ne)
+        self.__east_line = Line(ne, se)
+        self.__south_line = Line(se, sw)
+        self.__west_line = Line(sw, nw)
+
+    def draw_move(self, other, undo=False):
+        color = 'red'
+        if undo:
+            color = 'gray'
+        self.__win.draw_line(Line(self.center, other.center), color)
 
     def draw(self):
         if self.north:
-            self.__win.draw_line(self.north_line)
+            self.__win.draw_line(self.__north_line)
         if self.east:
-            self.__win.draw_line(self.east_line)
+            self.__win.draw_line(self.__east_line)
         if self.south:
-            self.__win.draw_line(self.south_line)
+            self.__win.draw_line(self.__south_line)
         if self.west:
-            self.__win.draw_line(self.west_line)
+            self.__win.draw_line(self.__west_line)
