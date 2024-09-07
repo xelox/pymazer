@@ -161,5 +161,9 @@ class Maze:
             parent = current.parent
             if parent is None:
                 break
-            self.__win.draw_line(Line(current.cell.center, parent.cell.center), fill_color='green')
+            self.__win.draw_line(
+                Line(current.cell.center, parent.cell.center),
+                fill_color='red',
+                width=5
+            )
             current = parent

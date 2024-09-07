@@ -6,12 +6,12 @@ class Line: # pylint: disable=too-few-public-methods
         self.a = a
         self.b = b
 
-    def draw(self, canvas: Canvas, fill_color='black'):
+    def draw(self, canvas: Canvas, fill_color='black', width=2):
         canvas.create_line(
             self.a.x,
             self.a.y,
             self.b.x,
             self.b.y,
             fill=fill_color,
-            width=2
+            width=width
         )
