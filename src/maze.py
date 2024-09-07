@@ -1,4 +1,3 @@
-import time
 import random
 
 from window import Window
@@ -26,10 +25,11 @@ class Maze:
         self.rows = 0
         self.__head = None
         self.__win.set_update_timeout(0.05)
+        win.bind_key("<space>", self.__reset_maze)
         win.add_update_callback('maze_update', self.__update)
         win.add_update_callback('maze_draw', self.__draw)
 
-    def __clear_maze(self):
+    def __reset_maze(self, _=None):
         padding = Cell.size
         self.cells = []
         self.colls = (self.__win.width - padding * 2) // Cell.size
@@ -51,11 +51,13 @@ class Maze:
         self.__generation_stack.append(self.cells[0])
         self.__open_set.append(Node(self.cells[0]))
         self.__head = None
+        self.__win.set_update_timeout(0)
         print('maze reset')
 
     def __generation_step(self):
         if len(self.__generation_stack) == 0:
             print('generation finished')
+            self.__win.set_update_timeout(0.05)
             self.__is_generated = True
             return
         current: Cell = self.__generation_stack.pop()
@@ -144,13 +146,11 @@ class Maze:
 
     def __update(self):
         if not self.__is_ready:
-            self.__clear_maze()
+            self.__reset_maze()
         elif not self.__is_generated:
             self.__generation_step()
         elif not self.__is_solved:
             self.__solution_step()
-        else:
-            self.__is_ready = False
 
     def __draw(self):
         self.__win.canvas.delete('all')

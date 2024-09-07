@@ -15,6 +15,9 @@ class Window:
         self.__update_callbacks = {}
         self.__update_timeout = 0
 
+    def bind_key(self, key, callback):
+        self.__root.bind(key, callback)
+
     def set_update_timeout(self, timeout):
         self.__update_timeout = timeout
 
