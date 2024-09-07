@@ -24,6 +24,7 @@ class Cell: # pylint: disable=too-few-public-methods disable=too-many-instance-a
         self.__west_line = Line(sw, nw)
 
         self.initial = True
+        self.closed = False
 
     def draw_move(self, other, undo=False):
         color = 'red'
