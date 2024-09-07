@@ -164,6 +164,6 @@ class Maze:
             self.__win.draw_line(
                 Line(current.cell.center, parent.cell.center),
                 fill_color='red',
-                width=5
+                width=3
             )
             current = parent
